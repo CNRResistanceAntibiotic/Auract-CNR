@@ -106,7 +106,7 @@ class Microreact(Dataset):
             log()
             result = subprocess.check_output(
                 'curl -H "Content-type: application/json; charset=UTF-8" -X POST -d @' + jsonpath +
-                ' https://microreact.org/api/project/', shell=True)
+                ' https://demo.microreact.org/api/schema/convert', shell=True)
             api_result = json.loads(result)
             log('Microreact link : ' + api_result['url'])
             log()
