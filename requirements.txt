@@ -1,0 +1,5 @@
+pandas>=1.2.5
+nextstrain-augur>=12.0.0
+Jinja2>=3.0.1
+
+
