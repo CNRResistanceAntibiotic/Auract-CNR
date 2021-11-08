@@ -105,17 +105,14 @@ class Microreact(Dataset):
         try:
             log()
 
-            result = subprocess.check_output(
-                'curl --header "Content-type: application/json; charset=UTF-8"'
-                ' --request POST'
-                ' --data '+jsonpath +
-                ' https://demo.microreact.org/api/schema/convert'
-                ' | '
-                'curl --header "Content-type: application/json; charset=UTF-8"'
-                ' --header "Access-Token: eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjVmZjZkNjFiYjU2NGRlMDY1ZTNhMDdkMyIsImlhdCI6MTYzNjM4MTA0NywiZXhwIjoxNzk0MDYxMDQ3fQ.Y6I_Z6i2AO8YvgM_Wu9DzOUGZbKBywKzDUusDLedgQCHeoRaS9ydMpQNnTb6esijBlNicDb6u4ySbdcxkkdTAw"'
-                ' --data @-'
-                ' https://microreact.org/api/projects/create'
-                , shell=True)
+            request = 'curl --header "Content-type: application/json; charset=UTF-8"' \
+                      ' --request POST --data '+jsonpath + ' https://demo.microreact.org/api/schema/convert' \
+                    ' | curl --header "Content-type: application/json; charset=UTF-8"' \
+                    ' --header "Access-Token: eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjVmZjZkNjFiYjU2NGRlMDY1ZTNhMDdkMyIsImlhdCI6MTYzNjM4MTA0NywiZXhwIjoxNzk0MDYxMDQ3fQ.Y6I_Z6i2AO8YvgM_Wu9DzOUGZbKBywKzDUusDLedgQCHeoRaS9ydMpQNnTb6esijBlNicDb6u4ySbdcxkkdTAw"' \
+                    ' --data @-' \
+                    ' https://microreact.org/api/projects/create'
+            print(request)
+            result = subprocess.check_output(request, shell=True)
             api_result = json.loads(result)
             log('Microreact link : ' + api_result['url'])
             log()
