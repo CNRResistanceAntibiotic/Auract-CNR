@@ -44,7 +44,8 @@ class Microreact(Dataset):
             if not file_exist:
                 log("creating results.csv that store metadata of the request", type='info')
                 writer.writeheader()
-            writer.writerow({'name': self.name, 'csv': self.basecsv, 'newick': self.newick, 'll': self.ll, 'date': datetime.datetime.now(), 'link': self.microreactlink, 'matrice': self.matrice})
+            writer.writerow({'name': self.name, 'csv': self.basecsv, 'newick': self.newick, 'll': self.ll,
+                             'date': datetime.datetime.now(), 'link': self.microreactlink, 'matrice': self.matrice})
             log("adding new result from the request to results.tsv", type='info')
 
     def apply_matrice_color(self):
@@ -114,10 +115,14 @@ class Microreact(Dataset):
 
             print(request)
             result = subprocess.check_output(request, shell=True)
-            api_result = json.loads(result)
-            log('Microreact link : ' + api_result['url'])
-            log()
-            self.microreactlink = api_result['url']
+            try:
+                api_result = json.loads(result)
+                log('Microreact link : ' + api_result['url'])
+                log()
+                self.microreactlink = api_result['url']
+            except ValueError as error:
+                log(error, type='debug')
+                log("Error- connection to microreact api failed check log file for more information", type='error')
         except OSError as error:
             log(error, type='debug')
             log("Error- connection to microreact api failed check log file for more information", type='error')

@@ -22,6 +22,7 @@ class Dataset:
             if not os.path.exists(second_file_dir):
                 os.makedirs(second_file_dir)
             self.csvadapte = os.path.join(second_file_dir, os.path.splitext(os.path.basename(self.name))[0] + "_cp.csv")
+            print("self.csvadapte : ", self.csvadapte)
             shutil.copyfile(self.basecsv, self.csvadapte)
         else:
             self.name = os.path.splitext(os.path.basename(newick_path))[0]
