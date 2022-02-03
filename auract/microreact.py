@@ -4,10 +4,10 @@ This module contain the subclass Microreact
 
 import json
 import pandas as pd
-from .dataset import Dataset
-from .color_from_matrice import min_distance_value
-from .log import log
-from .settings import result_Dir_micro, micro_json_dir
+from dataset import Dataset
+from color_from_matrice import min_distance_value
+from log import log
+from settings import result_Dir_micro, micro_json_dir, microToken
 import subprocess
 import os
 import csv
@@ -24,7 +24,6 @@ class Microreact(Dataset):
             self.resultdir = os.path.join(output, 'microreact')
         else:
             self.resultdir = result_Dir_micro
-        print(self.resultdir)
         self.check_column()
         if self.matrice:
             self.apply_matrice_color()
@@ -107,13 +106,13 @@ class Microreact(Dataset):
             log()
 
             request = 'curl --header "Content-type: application/json; charset=UTF-8"' \
-                      ' --request POST --data @'+jsonpath + ' https://demo.microreact.org/api/schema/convert' \
-                    ' | curl --header "Content-type: application/json; charset=UTF-8"' \
-                    ' --header "Access-Token: eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjVmZjZkNjFiYjU2NGRlMDY1ZTNhMDdkMyIsImlhdCI6MTYzNjM4MTA0NywiZXhwIjoxNzk0MDYxMDQ3fQ.Y6I_Z6i2AO8YvgM_Wu9DzOUGZbKBywKzDUusDLedgQCHeoRaS9ydMpQNnTb6esijBlNicDb6u4ySbdcxkkdTAw"' \
-                    ' --data @-' \
-                    ' https://microreact.org/api/projects/create'
+                      ' --request POST --data @'\
+                      +self.jsonfile + \
+                      ' https://demo.microreact.org/api/schema/convert' \
+                      ' | curl --header "Content-type: application/json; charset=UTF-8"' \
+                      ' --header "Access-Token: '+microToken+'"' \
+                      ' --data @- https://microreact.org/api/projects/create'
 
-            print(request)
             result = subprocess.check_output(request, shell=True)
             try:
                 api_result = json.loads(result)

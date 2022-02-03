@@ -8,9 +8,9 @@ import os
 import sys
 import pandas as pd
 
-from .microreact import Microreact
-from .auspice import Auspice
-from .log import log, quit_with_error
+from microreact import Microreact
+from auspice import Auspice
+from log import log, quit_with_error
 
 import importlib.util
 import time
@@ -218,7 +218,7 @@ def main():
                             matrice=args.matrice, jinja=jinja, output=args.output)
 
     if not args.no_clearfile:
-        from .settings import second_file_dir
+        from settings import second_file_dir
         if not os.path.exists(second_file_dir):
             pass
         else:

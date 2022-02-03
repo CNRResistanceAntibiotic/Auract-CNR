@@ -6,10 +6,10 @@ import pandas as pd
 import subprocess
 import json
 
-from .dataset import Dataset
-from .log import log, quit_with_error
-from .color_from_matrice import min_distance_value
-from .settings import auspice_refine_dir, auspice_config_dir, result_Dir_auspice, data_dir, auspice_data_dir, second_file_dir
+from dataset import Dataset
+from log import log, quit_with_error
+from color_from_matrice import min_distance_value
+from settings import auspice_refine_dir, auspice_config_dir, result_Dir_auspice, data_dir, auspice_data_dir, second_file_dir
 
 from Bio import Phylo
 from matplotlib import cm

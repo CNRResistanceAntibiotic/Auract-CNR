@@ -3,8 +3,8 @@
 import re
 import os
 import pandas as pd
-from .log import log
-from .settings import data_dir, geo_csv_ll_dir
+from log import log
+from settings import data_dir, geo_csv_ll_dir
 
 df_geo = pd.read_csv(os.path.join(data_dir, 'geodata/allclean.csv'))
 
