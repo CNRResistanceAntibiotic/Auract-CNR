@@ -223,7 +223,7 @@ def main():
             pass
         else:
             log()
-            shutil.rmtree(second_file_dir)
+            #shutil.rmtree(second_file_dir)
             log("Second file folder remove", type='info')
 
 
