@@ -2,7 +2,6 @@
 import argparse
 import logging
 import codecs
-import shutil
 import csv
 import os
 import sys
@@ -223,7 +222,6 @@ def main():
             pass
         else:
             log()
-            #shutil.rmtree(second_file_dir)
             log("Second file folder remove", type='info')
 
 
