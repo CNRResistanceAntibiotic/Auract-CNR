@@ -101,8 +101,7 @@ def matrice_verif(arguments):
         z = 0
         for i in array:
             if not i:
-                log(message=('Warning- index: ' + str(index[z]) + ' dont have any corresponding column'),
-                    type='warning')
+                log(message=(f'Warning- index: {index[z]} dont have any corresponding column'), type='warning')
             z += 1
         log("Warning- Matrice index not equal to matrice column, arguments matrice set to None", type='warning')
         arguments.matrice = False
@@ -113,7 +112,7 @@ def matrice_verif(arguments):
             try:
                 float(val2)
             except ValueError:
-                log('matrice contain value that are not number : '+val2, type='warning')
+                log(f'matrice contain value that are not number : {val2}', type='warning')
                 arguments.matrice = None
                 return arguments
 
@@ -151,8 +150,7 @@ def verification_args(arguments):
     if arguments.matrice:
         matrice_verif(arguments)
 
-    log('Info- Argument that will be use to run: ')
-    log()
+    log('Info- Argument that will be use to run:\n')
     for arg in vars(arguments):
         log(message=(arg + ': ' + str(getattr(arguments, arg))), type='info')
     return arguments
@@ -190,39 +188,31 @@ def version():
 def main():
     logging.basicConfig(filename='log.log', filemode="w", level=logging.DEBUG,
                         format='%(levelname)s - %(asctime)s - %(message)s')
-    log(version(), type='info')
-    log()
+    log(f"{version()}\n", type='info')
     args = argsparser()
 
     if not args.no_microreact:
-        log('-----------------------------------')
-        log('microreact call', type='info')
-        log()
+        log('\n-----------------------------------\nmicroreact call\n', type='info')
         Microreact(csv_path=args.csv, newick_path=args.newick, no_latlong=args.no_addlatlong,
-                         matrice=args.matrice, output=args.output)
-
+                   matrice=args.matrice, output=args.output)
     augur = importlib.util.find_spec(package_augur)
     jinja = importlib.util.find_spec(package_jinja2)
 
     if jinja is None:
-        log(package_jinja2 + " is not installed matrice will not be render in auspice", type='info')
+        log(f"{package_jinja2} is not installed matrice will not be render in auspice", type='info')
     if augur is None:
-        log(package_augur + " is not installed auspice ignored", type='warning')
+        log(f"{package_augur} is not installed auspice ignored", type='warning')
     else:
         if not args.no_auspice:
-            log('-----------------------------------')
-            log('auspice call', type='info')
-            log()
+            log('\n-----------------------------------\nauspice call \n', type='info')
             Auspice(csv_path=args.csv, newick_path=args.newick, no_latlong=args.no_addlatlong,
                             matrice=args.matrice, jinja=jinja, output=args.output)
-
     if not args.no_clearfile:
         from .settings import second_file_dir
         if not os.path.exists(second_file_dir):
             pass
         else:
-            log()
-            log("Second file folder remove", type='info')
+            log("\nSecond file folder remove", type='info')
 
 
 if __name__ == "__main__":
@@ -230,5 +220,5 @@ if __name__ == "__main__":
     main()
     log('end', type='debug')
     g_time = time.time() - start_time
-    log('Time '+str(g_time)+' second', type='info')
+    log(f'Time {g_time} second', type='info')
 

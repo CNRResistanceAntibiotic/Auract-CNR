@@ -19,6 +19,6 @@ auspice_data_dir = os.path.join(second_file_dir, 'auspice/data')
 auspice_refine_dir = os.path.join(second_file_dir, 'auspice/result')
 
 #result file path cwd
-resultDir = os.path.join(cwd_path, 'auract_result')
-result_Dir_micro = os.path.join(resultDir, 'microreact')
-result_Dir_auspice = os.path.join(resultDir, 'auspice')
+result_dir = os.path.join(cwd_path, 'auract_result')
+result_dir_micro = os.path.join(result_dir, 'microreact')
+result_dir_auspice = os.path.join(result_dir, 'auspice')

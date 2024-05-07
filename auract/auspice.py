@@ -9,7 +9,7 @@ import json
 from .dataset import Dataset
 from .log import log, quit_with_error
 from .color_from_matrice import min_distance_value
-from .settings import auspice_refine_dir, auspice_config_dir, result_Dir_auspice, data_dir, auspice_data_dir, second_file_dir
+from .settings import auspice_refine_dir, auspice_config_dir, result_dir_auspice, data_dir, auspice_data_dir, second_file_dir
 
 from Bio import Phylo
 from matplotlib import cm
@@ -26,7 +26,7 @@ class Auspice(Dataset):
         if output:
             self.resultdir = os.path.join(output, 'auspice')
         else:
-            self.resultdir = result_Dir_auspice
+            self.resultdir = result_dir_auspice
         self.lastresultjson = os.path.join(self.resultdir, self.name + '.json')
         self.refinertree = os.path.join(auspice_refine_dir, self.name + '_tree.nwk')
         self.refinernode = os.path.join(auspice_refine_dir, self.name + '_node_data.nwk')
@@ -93,12 +93,16 @@ class Auspice(Dataset):
     def apply_matrice_color(self):
         df_color = min_distance_value(self.matrice)
         df = pd.read_csv(self.metadata)
+        print(df)
         df = df.astype({"strain": str})
         df_color = df_color.astype({"id": str})
 
+        print(df)
         df = df.set_index('strain').join(df_color.set_index('id'))
+        print(df)
         df.reset_index(inplace=True)
         df = df.drop(columns=['min_value_compare_to_other__colour'])
+        print(df)
         df.to_csv(self.metadata, index=False)
 
         df_color = df_color.drop(columns=['id'])

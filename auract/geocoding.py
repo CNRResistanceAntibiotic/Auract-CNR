@@ -11,7 +11,7 @@ df_geo = pd.read_csv(os.path.join(data_dir, 'geodata/allclean.csv'))
 
 def latfinder(zipdf):
     if not re.match('[0-9]', str(zipdf)):
-        log("\t Warning- zip code : " + str(zipdf) + " is not valid must match regex [0-9] location node will be ignored",
+        log(f"\t Warning- zip code : {zipdf} is not valid must match regex [0-9] location node will be ignored",
             type='warning')
         log()
         return
@@ -20,15 +20,14 @@ def latfinder(zipdf):
         return string
     else:
         reducezip = (re.sub(".{2}$", '00', str(zipdf)))
-        log("\t latlong not found for zip-code: " + str(zipdf) + " trying with reduced zip-code " + reducezip,
-            type='info')
+        log(f"\t latlong not found for zip-code: {zipdf} trying with reduced zip-code {reducezip}", type='info')
         string = str(re.sub("[][]", '', str(df_geo.lat.loc[df_geo['zip_code'] == float(reducezip)].head(1).values)))
 
         if string:
             log("\t\t success", type='info')
             return string
         else:
-            log("\t latlong can't be found for " + str(zipdf) + " even with reduced zip-code", type='info')
+            log(f"\t latlong can't be found for {zipdf} even with reduced zip-code", type='info')
 
 
 def longfinder(zipdf):
@@ -54,10 +53,8 @@ def geocoding(csv_path):
         log("zip-code column is missing geocoding process stop", type="warning")
         return csv_path
 
-    log("Finding lat-long for all zip-code: ", type="info")
-    log()
+    log("Finding lat-long for all zip-code:\n", type="info")
     df['latitude'] = df.apply(lambda row: latfinder(row['zip-code']), axis=1)
-
     df['longitude'] = df.apply(lambda row: longfinder(row['zip-code']), axis=1)
 
     if not os.path.exists(geo_csv_ll_dir):

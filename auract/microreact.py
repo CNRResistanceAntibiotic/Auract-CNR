@@ -7,7 +7,7 @@ import pandas as pd
 from .dataset import Dataset
 from .color_from_matrice import min_distance_value
 from .log import log
-from .settings import result_Dir_micro, micro_json_dir, microToken
+from .settings import result_dir_micro, micro_json_dir, microToken
 import subprocess
 import os
 import csv
@@ -23,7 +23,7 @@ class Microreact(Dataset):
         if output:
             self.resultdir = os.path.join(output, 'microreact')
         else:
-            self.resultdir = result_Dir_micro
+            self.resultdir = result_dir_micro
         self.check_column()
         if self.matrice:
             self.apply_matrice_color()
