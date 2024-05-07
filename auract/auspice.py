@@ -98,11 +98,10 @@ class Auspice(Dataset):
         df_color = df_color.astype({"id": str})
 
         print(df)
-        df = df.set_index(df['strains'].astype(str) + '_' + df['sequence_source'].astype(str)).join(df_color.set_index('id'))
-        print(df)
-        df = df.rename(columns={'index': 'strains'})
+        df = df.set_index(df['strain'] + '_' + df['sequence_source']).join(df_color.set_index('id'))
         print(df)
         df.reset_index(inplace=True)
+        df = df.rename(columns={'index': 'strains'})
         df = df.drop(columns=['min_value_compare_to_other__colour'])
         print(df)
         df.to_csv(self.metadata, index=False)
