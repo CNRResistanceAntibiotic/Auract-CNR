@@ -17,10 +17,18 @@ def min_distance_value(matricepath):
                 min = val2
             if str(key2) != str(key) and int(val2) <= int(min):
                 min = val2
+        """
         df_color = df_color.append(
             {'id': key, 'min_value_compare_to_other': int(min),
              'min_value_compare_to_other__colour': str(hexvalue(min))},
             ignore_index=True)
+        """
+        data_to_append = pd.DataFrame([{
+            'id': key,
+            'min_value_compare_to_other': int(min),
+            'min_value_compare_to_other__colour': hexvalue(min)
+        }])
+        df_color = pd.concat([df_color,  data_to_append], ignore_index=True)
     return df_color
 
 

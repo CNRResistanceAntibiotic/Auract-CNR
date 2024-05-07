@@ -138,8 +138,12 @@ class Auspice(Dataset):
         tablepath = os.path.join(second_file_dir, self.name + '_table.html')
         self.table = tablepath
         with open(self.table, "w") as mc:
+            """
             mc.write(str(matrix.render()))
             self.table_html = matrix.render()
+            """
+            mc.write(str(matrix.to_html()))
+            self.table_html = matrix.to_html()
 
     def commandaugurrefine(self):
         if not os.path.exists(auspice_refine_dir):
@@ -154,8 +158,9 @@ class Auspice(Dataset):
         with open(os.path.join(self.resultdir, 'auspice_command_result.log'), 'w+') as f:
             command = " ".join(argument)
             try:
-                log('\tRunning augur refine command can check output in ' + self.resultdir + '/auspice_command_result.log',
+                log(f'\tRunning augur refine command can check output in {self.resultdir}/auspice_command_result.log',
                     type='info')
+                log(f'\tCommand : {command}', type='info')
                 subprocess.run(command, stdout=f, stderr=subprocess.STDOUT, shell=True)
                 log('\tAugur refine ended', type='info')
                 log()
@@ -182,8 +187,9 @@ class Auspice(Dataset):
         with open(os.path.join(self.resultdir, 'auspice_command_result.log'), 'a+') as f:
             command = " ".join(argument)
             try:
-                log('\tRunning augur export command can check output in '+ self.resultdir + '/auspice_command_result.log',
+                log(f'\tRunning augur export command can check output in {self.resultdir}/auspice_command_result.log',
                     type='info')
+                log(f'\tCommand : {command}', type='info')
                 subprocess.run(command, stdout=f, stderr=subprocess.STDOUT, shell=True)
                 log('\tAugur export ended', type='info')
                 log()

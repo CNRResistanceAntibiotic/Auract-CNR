@@ -51,10 +51,10 @@ def geocoding(csv_path):
             df.rename(columns={col: 'zip-code'}, inplace=True)
             break
     else:
-        log("zip-code collum is missing geocoding process stop", type="warning")
+        log("zip-code column is missing geocoding process stop", type="warning")
         return csv_path
 
-    log("Finding latlong for all zip-code: ", type="info")
+    log("Finding lat-long for all zip-code: ", type="info")
     log()
     df['latitude'] = df.apply(lambda row: latfinder(row['zip-code']), axis=1)
 

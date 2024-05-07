@@ -29,8 +29,7 @@ class Microreact(Dataset):
             self.apply_matrice_color()
         self.microreact_api()
         self.store_result()
-        log()
-        log()
+        log("\n")
 
     def store_result(self):
         if not os.path.exists(self.resultdir):
@@ -83,16 +82,9 @@ class Microreact(Dataset):
         if self.newick:
             with open(self.newick, "r") as z:
                 treetext = z.read()
-            x = {
-                "name": self.name,
-                "data": datatext,
-                "tree": treetext
-            }
+            x = {"name": self.name, "data": datatext, "tree": treetext}
         else:
-            x = {
-                "name": self.name,
-                "data": datatext
-            }
+            x = {"name": self.name, "data": datatext}
         if not os.path.exists(micro_json_dir):
             os.makedirs(micro_json_dir)
         jsonpath = os.path.join(micro_json_dir, self.name + ".json")
@@ -116,7 +108,7 @@ class Microreact(Dataset):
             result = subprocess.check_output(request, shell=True)
             try:
                 api_result = json.loads(result)
-                log('Microreact link : ' + api_result['url'])
+                log(f'Microreact link : {api_result["url"]}')
                 log()
                 self.microreactlink = api_result['url']
             except ValueError as error:
